@@ -173,7 +173,6 @@ object PgnParser {
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
             println("ERROR parsing pgn: " + pgn)
         }
 

@@ -1,15 +1,11 @@
 package karballo.uci
 
+import System
 import karballo.Config
 import karballo.Move
-import karballo.book.FileBook
+import karballo.book.NoBook
 import karballo.log.Logger
-import karballo.search.SearchEngineThreaded
-import karballo.search.SearchObserver
-import karballo.search.SearchParameters
-import karballo.search.SearchStatusInfo
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.runBlocking
+import karballo.search.*
 
 /**
  * UCI Interface
@@ -24,10 +20,11 @@ class Uci : SearchObserver {
     init {
         Logger.noLog = true // Disable logging
         config = Config()
-        config.book = FileBook("/book_small.bin")
+        //config.book = FileBook("/book_small.bin")
+        config.book = NoBook()
     }
 
-    suspend fun processLine(line: String) {
+    fun processLine(line: String) {
         val tokens = line.split(" ".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
         var index = 0
         val command = tokens[index++].toLowerCase()
@@ -89,7 +86,7 @@ class Uci : SearchObserver {
                 // Wait for the engine to finish searching
                 while (engine.isSearching) {
                     try {
-                        Thread.sleep(10)
+                        //Thread.sleep(10)
                     } catch (e: Exception) {
                     }
                 }
@@ -197,7 +194,7 @@ class Uci : SearchObserver {
         }
     }
 
-    suspend internal fun loop() {
+    internal fun loop() {
         println(NAME + " by " + AUTHOR)
         while (true) {
             val line = readLine()
@@ -222,6 +219,13 @@ class Uci : SearchObserver {
         println(info.toString())
     }
 
+    fun test() {
+        val se = SearchEngine(Config())
+        se.board.startPosition()
+        se.setObserver(this)
+        se.go(SearchParameters.get(10000))
+    }
+
     companion object {
         val NAME = "Carballo Chess Engine v1.8"
         val AUTHOR = "Alberto Alonso Ruibal"
@@ -230,7 +234,6 @@ class Uci : SearchObserver {
 
 fun main(args: Array<String>) {
     val uci = Uci()
-    runBlocking(CommonPool) {
-        uci.loop()
-    }
+    //uci.loop()
+    uci.test()
 }
