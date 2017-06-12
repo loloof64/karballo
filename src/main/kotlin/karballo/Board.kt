@@ -106,8 +106,11 @@ class Board {
     /**
      * @return true if white moves
      */
-    val turn: Boolean
+    var turn: Boolean
         get() = flags and FLAG_TURN == 0L
+        set(value) { 
+            flags = if (value) flags and (not FLAG_TURN) else flags or FLAG_TURN
+         }
 
     /**
      * Returns the castling destiny square, 0 it it cannot castle
