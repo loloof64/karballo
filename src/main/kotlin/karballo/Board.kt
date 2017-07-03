@@ -109,7 +109,7 @@ class Board {
     var turn: Boolean
         get() = flags and FLAG_TURN == 0L
         set(value) { 
-            flags = if (!value) flags and FLAG_TURN.inv() else flags or FLAG_TURN
+            flags = if (value) flags and FLAG_TURN.inv() else flags or FLAG_TURN
          }
 
     /**
