@@ -434,7 +434,7 @@ object Move {
             val currentPositionFen = board.fen
             val positionAfterMove = Board()
             positionAfterMove.fen = currentPositionFen
-            positionAfterMove.doMove(move)
+            positionAfterMove.doMove(move, fillSanInfo = false)
 
             positionAfterMove.generateLegalMoves()
             val moveSuffix = if (positionAfterMove.legalMoveCount > 0) "+" else "#"
