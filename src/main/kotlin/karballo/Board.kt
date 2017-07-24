@@ -845,7 +845,7 @@ class Board {
     /**
      * Sets check flag if the own king is in check
      */
-    private fun setCheckFlags() {
+    public fun setCheckFlags() {
         if (bbAttacks.isSquareAttacked(this, kings and mines, turn)) {
             flags = flags or FLAG_CHECK
         } else {
