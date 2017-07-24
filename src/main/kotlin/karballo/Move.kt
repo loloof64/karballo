@@ -431,7 +431,14 @@ object Move {
             sb.append(PIECE_LETTERS_UPPERCASE[getPiecePromoted(move)])
         }
         if (isCheck(move)) {
-            sb.append("+")
+            val currentPositionFen = board.fen
+            val positionAfterMove = Board()
+            positionAfterMove.fen = currentPositionFen
+            positionAfterMove.doMove(move)
+
+            positionAfterMove.generateLegalMoves()
+            val moveSuffix = if (positionAfterMove.legalMoveCount > 0) "+" else "#"
+            sb.append(moveSuffix)
         }
         return sb.toString()
     }
