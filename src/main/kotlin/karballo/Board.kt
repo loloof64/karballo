@@ -936,38 +936,34 @@ class Board {
     // Added by loloof64
     /////////////////////////////////
 
-    val isDrawByFiftyMovesRule: Boolean
-        get() {
-            return fiftyMovesRule >= 100
-        }
-
-    val isDrawByThreeFoldsRepetition: Boolean
-        get() {
-            var repetitions = 0
+    fun isDrawByFiftyMovesRule(): Boolean {
+        return fiftyMovesRule >= 100
+    }
+    
+    fun isDrawByThreeFoldsRepetition(): Boolean {
+        var repetitions = 0
             for (i in 0..moveNumber - 1 - 1) {
                 if (keyHistory[i][0] == key[0] && keyHistory[i][1] == key[1]) {
                     repetitions++
                 }
             }
             return repetitions >= 2
-        }
+    }
 
-    val isDrawByMissingMatingMaterial: Boolean
-        get() {
-            return pawns == 0L && rooks == 0L && queens == 0L && (bishops == 0L && knights == 0L
+    fun isDrawByMissingMatingMaterial(): Boolean {
+        return pawns == 0L && rooks == 0L && queens == 0L && (bishops == 0L && knights == 0L
                     || knights == 0L && BitboardUtils.popCount(bishops) == 1
                     || bishops == 0L && (BitboardUtils.popCount(knights) == 1 || BitboardUtils.popCount(knights) == 2 && (BitboardUtils.popCount(knights and whites) == 2 || BitboardUtils.popCount(knights and whites.inv()) == 2))
                     || knights == 0L
                     && BitboardUtils.popCount(bishops and whites) == 1
                     && BitboardUtils.popCount(bishops and whites.inv()) == 1
                     && BitboardUtils.getSameColorSquares(bishops and whites) and bishops and whites.inv() != 0L)
-        }
+    }
 
-    val isDrawByStaleMate: Boolean
-        get() {
-            generateLegalMoves()
-            return legalMoveCount == 0 && !check
-        }
+    fun isDrawByStaleMate(): Boolean {
+        generateLegalMoves()
+        return legalMoveCount == 0 && !check
+    }
 
     // End of Added by loloof64 section
     /////////////////////////////////////
