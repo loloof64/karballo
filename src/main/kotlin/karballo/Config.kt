@@ -49,7 +49,7 @@ class Config {
 
     companion object {
         // Default values are static fields used also from UCIEngine
-        val DEFAULT_TRANSPOSITION_TABLE_SIZE = 2
+        val DEFAULT_TRANSPOSITION_TABLE_SIZE = 64
         val DEFAULT_PONDER = true
         val DEFAULT_USE_BOOK = true
         val DEFAULT_BOOK_KNOWGLEDGE = 100
