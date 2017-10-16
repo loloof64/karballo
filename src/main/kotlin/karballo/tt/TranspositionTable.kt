@@ -28,7 +28,7 @@ class TranspositionTable(sizeMb: Int) {
 
     var score: Int = 0
         private set
-    private val sizeBits: Int = BitboardUtils.square2Index(sizeMb.toLong())
+    private val sizeBits: Int = BitboardUtils.square2Index(sizeMb.toLong()) + 16
 
     init {
         size = 1 shl sizeBits
